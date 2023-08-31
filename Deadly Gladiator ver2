@@ -1,0 +1,76 @@
+            const int punch1 = 1;
+            const int punch2 = 2;
+            const int punch3 = 3;
+
+            int helpLimit = 1;
+            int userInput;
+            int combatTechniqueLvl = 0;
+            int helperDamage;
+            int heroHealth = 100;
+            int enemyHealth = 100;
+            int heroDamage;
+            int enemyDamage = 30;
+
+            Console.WriteLine("Вы перед врагом");
+            while (heroHealth > 0 && enemyHealth > 0)
+            {
+                Console.WriteLine("Выберете атаку: 1 - призвать помощника, 2 - магия огня, 3 - спрятаться как мышь, 4 - помочь помощнику");
+                userInput = Convert.ToInt32(Console.ReadLine());
+                if (userInput == 4 && combatTechniqueLvl > 0 && helpLimit >= 1)
+                {
+                    heroDamage = 50;
+                    enemyHealth -= heroDamage;
+                    heroHealth -= enemyDamage;
+                    Console.WriteLine($"Ваше здоровье - {heroHealth}, а урон {heroDamage}.");
+                    Console.WriteLine($"Здоровье противника - {enemyHealth}, а его урон {enemyDamage}");
+                    helpLimit -= 1;
+                }
+                if (userInput == punch1 || userInput == punch2 || userInput == punch3)
+                {
+                    switch (userInput)
+                    {
+                        case punch1:
+                            helperDamage = 25;
+                            enemyHealth -= helperDamage;
+                            heroHealth -= enemyDamage;
+                            Console.WriteLine($"Ваше здоровье - {heroHealth}, а урон помощника {helperDamage}.");
+                            Console.WriteLine($"Здоровье противника - {enemyHealth}, а его урон {enemyDamage}");
+                            combatTechniqueLvl += 1;
+                            break;
+                        case punch2:
+                            Console.WriteLine("Вы подожгли противника, ему это не понравилось.");
+                            heroDamage = 35;
+                            enemyHealth -= heroDamage;
+                            heroHealth -= enemyDamage;
+                            Console.WriteLine($"Ваше здоровье - {heroHealth}, а урон {heroDamage}.");
+                            Console.WriteLine($"Здоровье противника - {enemyHealth}, а его урон {enemyDamage}");
+                            break;
+                        case punch3:
+                            Console.WriteLine("Вы спрятались за углом и пока противник Вас ищет восстановили здоровье.");
+                            heroHealth += 30;
+                            enemyDamage += 5;
+                            Console.WriteLine($"Ваше здоровье - {heroHealth}.");
+                            break;
+                        default:
+                            Console.WriteLine("Вы не сумели произвести атаку написав неправильную команду");
+                            Console.WriteLine("Противник понял это и подло засадил Вам заточкой по печени");
+                            heroHealth -= enemyDamage;
+                            Console.WriteLine($"Ваше здоровье - {heroHealth}.");
+                            Console.WriteLine($"Здоровье противника - {enemyHealth}, а его урон {enemyDamage}");
+                            break;
+                    }
+                }
+            }
+            if (heroHealth <= 0 && enemyHealth <= 0)
+            {
+                Console.WriteLine("Ценою своей жизни Вы остановили монстра...");
+            }
+            else if (heroHealth <= 0)
+            {
+                Console.WriteLine("Вы мертвы...");
+            }
+            else if (enemyHealth <= 0)
+            {
+                Console.WriteLine("Вы одержали победу!");
+            }
+            Console.ReadKey();
